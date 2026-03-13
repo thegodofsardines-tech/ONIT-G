@@ -8,16 +8,13 @@
         :root {
             --bg-color: #000000;
             --text-color: #ffffff;
-            --dim-text: #444444;
-            --mid-text: #888888;
+            --dim-text: #333333;
+            --mid-text: #777777;
             --border-style: 1px solid #ffffff;
             --font-main: 'Courier New', Courier, monospace;
         }
 
-        * {
-            box-sizing: border-box;
-            cursor: crosshair;
-        }
+        * { box-sizing: border-box; cursor: crosshair; }
 
         body {
             background-color: var(--bg-color);
@@ -35,30 +32,33 @@
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 100;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
             background-size: 100% 3px, 3px 100%;
             pointer-events: none;
-            animation: flicker 0.15s infinite;
+            animation: flicker 0.2s infinite;
         }
 
         @keyframes flicker {
-            0% { opacity: 0.97; }
+            0% { opacity: 0.98; }
             50% { opacity: 1; }
-            100% { opacity: 0.98; }
+            100% { opacity: 0.99; }
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
             border: var(--border-style);
-            height: 90vh;
-            padding: 40px;
+            height: 92vh;
+            padding: 30px;
             position: relative;
-            background: rgba(5, 5, 5, 0.9);
+            background: #050505;
+            display: flex;
+            flex-direction: column;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
         /* INTRO ANIMATION */
         #auth-screen {
@@ -66,22 +66,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            flex-grow: 1;
             text-align: center;
         }
 
         .typing-text {
-            border-right: 2px solid #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
+            min-height: 1.2em;
             margin: 10px 0;
         }
 
         .loading-bar {
             width: 300px;
-            height: 4px;
-            border: 1px solid #fff;
+            height: 2px;
+            border: 1px solid #333;
             margin-top: 20px;
             position: relative;
         }
@@ -92,22 +89,33 @@
             width: 0%;
         }
 
-        /* DIRECTORY SCROLLBAR */
-        .scrollable-list {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 15px;
-            margin-top: 20px;
-            border-top: 1px solid #222;
+        /* DIRECTORY LISTING */
+        .directory-container {
+            flex-grow: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
+        .scrollable-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            border-top: 1px solid #222;
+            margin-top: 10px;
+        }
+
+        /* Custom Scrollbar */
         .scrollable-list::-webkit-scrollbar { width: 4px; }
         .scrollable-list::-webkit-scrollbar-track { background: #000; }
         .scrollable-list::-webkit-scrollbar-thumb { background: #fff; }
 
-        /* NAVIGATION STYLES */
-        ul { list-style: none; padding: 0; }
-        li { margin: 12px 0; font-size: 0.85rem; }
+        ul { list-style: none; padding: 0; margin: 0; }
+        li { 
+            padding: 10px 0; 
+            border-bottom: 1px solid #111;
+            font-size: 0.85rem;
+        }
         
         .nav-item { color: var(--dim-text); text-decoration: none; }
 
@@ -115,10 +123,15 @@
             color: var(--text-color);
             font-weight: bold;
             text-decoration: none;
-            transition: 0.2s;
+            display: inline-block;
+            width: 100%;
         }
 
-        .active-link:hover { padding-left: 10px; background: #fff; color: #000; }
+        .active-link:hover { 
+            background: #fff; 
+            color: #000; 
+            padding-left: 5px;
+        }
 
         /* DOSSIER STYLES */
         .file-header {
@@ -130,59 +143,60 @@
         }
 
         .redacted-photo {
-            width: 150px;
-            height: 180px;
-            background: #111;
-            border: var(--border-style);
+            width: 140px;
+            height: 170px;
+            background: #0a0a0a;
+            border: 1px solid #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #333;
+            font-size: 0.7rem;
+            color: #222;
             letter-spacing: 2px;
         }
 
-        .meta-data p { margin: 5px 0; font-size: 0.85rem; }
+        .meta-data p { margin: 5px 0; font-size: 0.8rem; }
 
-        .section-box { margin-bottom: 40px; }
+        .section-box { margin-bottom: 30px; }
 
         .section-title {
             background: #fff;
             color: #000;
-            padding: 5px 10px;
+            padding: 3px 8px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
         .content-area {
-            border-left: 2px solid #333;
+            border-left: 1px solid #222;
             padding-left: 15px;
-            color: #aaa;
-            line-height: 1.6;
-            min-height: 40px;
+            color: #888;
+            line-height: 1.5;
+            font-size: 0.85rem;
         }
 
-        .btn-report {
+        .btn-action {
             display: block;
-            margin-top: 40px;
-            padding: 12px;
+            margin-top: 20px;
+            padding: 10px;
             border: 1px solid #fff;
             text-align: center;
             text-decoration: none;
             color: #fff;
-            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        .btn-report:hover { background: #fff; color: #000; }
+        .btn-action:hover { background: #fff; color: #000; }
 
         .stamp {
             border: 2px solid #fff;
-            padding: 8px 15px;
+            padding: 5px 10px;
             width: fit-content;
-            transform: rotate(-3deg);
-            margin-bottom: 25px;
-            font-weight: 900;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
         }
 
     </style>
@@ -191,67 +205,70 @@
 
 <div class="container">
     
-    <div id="auth-page">
+    <div id="auth-page" class="page">
         <div id="auth-screen">
             <h2 id="terminal-header"></h2>
-            <p id="status-text" class="typing-text"></p>
+            <div id="status-text" class="typing-text"></div>
             <div id="load-container" class="hidden">
                 <div class="loading-bar"><div id="bar-fill" class="loading-fill"></div></div>
             </div>
-            <p id="footer-warn" style="font-size: 0.6rem; margin-top: 50px; color: #444;" class="hidden">
-                SECURE TERMINAL // BRAVO-6-POXTROT // NO LOG RECORDED
-            </p>
         </div>
     </div>
 
-    <div id="db-page" class="hidden">
-        <h3>ONI // iNet Main Database</h3>
-        <p style="font-size: 0.7rem; color: #888;">NODE: HIGH-COMM // REACH ACCESS POINT</p>
-        <ul>
+    <div id="db-page" class="page hidden">
+        <h3>ONI // iNet Main Menu</h3>
+        <p style="font-size: 0.7rem; color: #444;">TERMINAL ID: B6-P-992 // LOCATION: [REDACTED]</p>
+        <ul style="margin-top: 30px;">
             <li><span class="nav-item">[X] ENCRYPTION KEYS</span></li>
             <li><span class="nav-item">[X] ORBITAL GRID MAPS</span></li>
             <li><a href="#" class="active-link" onclick="showPage('personnel-page')">[>] PERSONNEL FILES</a></li>
             <li><span class="nav-item">[X] SIGNAL INTELLIGENCE</span></li>
             <li><span class="nav-item">[X] SECTION III ARCHIVES</span></li>
-            <li><span class="nav-item">[X] COVENANT TACTICAL DATA</span></li>
         </ul>
     </div>
 
-    <div id="personnel-page" class="hidden">
-        <a href="#" onclick="showPage('db-page')" style="color: #666; text-decoration: none; font-size: 0.7rem;">< RETURN TO MAIN</a>
-        <h3>Database: Personnel Search</h3>
+    <div id="personnel-page" class="page hidden">
+        <a href="#" onclick="showPage('db-page')" style="color: #444; text-decoration: none; font-size: 0.7rem;">< BACK TO MENU</a>
+        <h3>ONI // Personnel Directory</h3>
         
-        <div class="scrollable-list">
-            <ul>
-                <li><a href="#" class="active-link" onclick="showPage('dossier-page')">[ACCESS] FOWLER, JONNATHAN // SEC-II</a></li>
-                <li><span class="nav-item">[X] S-117 // MASTER CHIEF [LEVEL 5 REQUIRED]</span></li>
-                <li><span class="nav-item">[X] HALSEY, C. // CIVILIAN [EYES ONLY]</span></li>
-                <li><span class="nav-item">[X] S-052 // JORGE [STATUS: MIA]</span></li>
-                <li><span class="nav-item">[X] LOCKE, J. // FIELD AGENT [ENCRYPTED]</span></li>
-                <li><span class="nav-item">[X] [REDACTED], [REDACTED] // PROWLER CORPS</span></li>
-                <li><span class="nav-item">[X] KEYES, J. // CAPTAIN [ARCHIVE]</span></li>
-                <li><span class="nav-item">[X] OSMAN, S. // ADMIRAL [ACCESS DENIED]</span></li>
-                <li><span class="nav-item">[X] S-087 // KELLY [LEVEL 5 REQUIRED]</span></li>
-                <li><span class="nav-item">[X] S-104 // FREDERIC [LEVEL 5 REQUIRED]</span></li>
-                <li><span class="nav-item">[X] S-058 // LINDA [LEVEL 5 REQUIRED]</span></li>
-                <li><span class="nav-item">[X] S-B312 // NOBLE SIX [FILE PURGED]</span></li>
-                <li><span class="nav-item">[X] [REDACTED] // SECTION III / MIDNIGHT</span></li>
-                <li><span class="nav-item">[X] VANE, A. // ANALYSIS BUREAU</span></li>
-                <li><span class="nav-item">[X] PARANGOSKY, M. // ADMIRAL [ARCHIVE]</span></li>
-                <li><span class="nav-item">[X] S-043 // WILL [STATUS: KIA]</span></li>
-                <li><span class="nav-item">[X] MILLER, R. // AI LIAISON</span></li>
-                <li><span class="nav-item">[X] DARE, V. // CAPTAIN [ENCRYPTED]</span></li>
-                <li><span class="nav-item">[X] [REDACTED] // BLACK-BOX PROTOCOL</span></li>
-                <li><span class="nav-item">[X] S-044 // ANTON [STATUS: KIA]</span></li>
-            </ul>
+        <div class="directory-container">
+            <div class="scrollable-list">
+                <ul>
+                    <li><a href="#" class="active-link" onclick="showPage('dossier-page')">FOWLER, JONNATHAN // ID: 8821-JF</a></li>
+                    
+                    <li><span class="nav-item">S-117 // [CLASSIFIED: LEVEL 5]</span></li>
+                    <li><span class="nav-item">HALSEY, CATHERINE // [CLASSIFIED: EYES ONLY]</span></li>
+                    <li><span class="nav-item">S-052 // JORGE [STATUS: MIA]</span></li>
+                    <li><span class="nav-item">LOCKE, JAMESON // [ENCRYPTED]</span></li>
+                    <li><span class="nav-item">PARANGOSKY, MARGARET // [ARCHIVE]</span></li>
+                    <li><span class="nav-item">OSMAN, SERIN // [ACCESS DENIED]</span></li>
+                    <li><span class="nav-item">S-B312 // NOBLE SIX [FILE PURGED]</span></li>
+                    <li><span class="nav-item">KEYES, JACOB // [ARCHIVE]</span></li>
+                    <li><span class="nav-item">S-087 // KELLY [LEVEL 5 REQUIRED]</span></li>
+                    <li><span class="nav-item">S-104 // FREDERIC [LEVEL 5 REQUIRED]</span></li>
+                    <li><span class="nav-item">S-058 // LINDA [LEVEL 5 REQUIRED]</span></li>
+                    <li><span class="nav-item">VANE, ALISTAIR // ANALYSIS BUREAU</span></li>
+                    <li><span class="nav-item">S-043 // WILL [STATUS: KIA]</span></li>
+                    <li><span class="nav-item">MILLER, ROLAND // AI LIAISON</span></li>
+                    <li><span class="nav-item">DARE, VERONICA // [ENCRYPTED]</span></li>
+                    <li><span class="nav-item">S-044 // ANTON [STATUS: KIA]</span></li>
+                    <li><span class="nav-item">PALMER, SARAH // [COMMAND]</span></li>
+                    <li><span class="nav-item">LASKY, THOMAS // [FLEET COMMAND]</span></li>
+                    <li><span class="nav-item">S-029 // JOSHUA [STATUS: MIA]</span></li>
+                    <li><span class="nav-item">S-034 // SAMUEL [STATUS: KIA]</span></li>
+                    <li><span class="nav-item">S-069 // SOLOMON [STATUS: KIA]</span></li>
+                    <li><span class="nav-item">[REDACTED] // SECTION III / MIDNIGHT</span></li>
+                    <li><span class="nav-item">ACKERSON, JAMES // [FILE PURGED]</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div id="dossier-page" class="hidden">
+    <div id="dossier-page" class="page hidden">
         <div class="stamp">TOP SECRET // ONI-SEC-II</div>
         
         <div class="file-header">
-            <div class="redacted-photo">REDACTED</div>
+            <div class="redacted-photo">PHOTO REDACTED</div>
             <div class="meta-data">
                 <p><strong>CODENAME:</strong> [REDACTED]</p>
                 <p><strong>NAME:</strong> JONNATHAN FOWLER</p>
@@ -276,12 +293,12 @@
             <div class="content-area">[INSERT DOCUMENTATION HERE]</div>
         </div>
 
-        <a href="#" class="btn-report" onclick="showPage('report-page')">VIEW IR-4001 REPORT</a>
+        <a href="#" class="btn-action" onclick="showPage('report-page')">OPEN IR-4001 REPORT</a>
         
-        <p style="margin-top: 30px;"><a href="#" onclick="showPage('personnel-page')" style="color: #666; text-decoration: none; font-size: 0.7rem;">< RETURN TO DIRECTORY</a></p>
+        <p style="margin-top: 30px;"><a href="#" onclick="showPage('personnel-page')" style="color: #444; text-decoration: none; font-size: 0.7rem;">< BACK TO DIRECTORY</a></p>
     </div>
 
-    <div id="report-page" class="hidden">
+    <div id="report-page" class="page hidden">
         <div class="stamp">INCIDENT REPORT IR-4001</div>
         <h3>FIELD REPORT // INTERNAL AFFAIRS</h3>
         
@@ -292,72 +309,68 @@
             </div>
         </div>
 
-        <a href="#" class="btn-report" onclick="showPage('dossier-page')">RETURN TO PERSONNEL FILE</a>
+        <a href="#" class="btn-action" onclick="showPage('dossier-page')">RETURN TO PERSONNEL FILE</a>
     </div>
 
 </div>
 
 <script>
+    // Navigation logic
     function showPage(pageId) {
-        const pages = ['auth-page', 'db-page', 'personnel-page', 'dossier-page', 'report-page'];
-        pages.forEach(id => document.getElementById(id).classList.add('hidden'));
+        // Find all elements with class 'page' and hide them
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => p.classList.add('hidden'));
+        
+        // Show the target page
         document.getElementById(pageId).classList.remove('hidden');
     }
 
-    // Advanced Boot Sequence
+    // Terminal Boot Sequence
     window.onload = function() {
         const header = document.getElementById('terminal-header');
         const status = document.getElementById('status-text');
         const loadContainer = document.getElementById('load-container');
         const barFill = document.getElementById('bar-fill');
-        const footer = document.getElementById('footer-warn');
 
-        let step = 0;
         const headerTxt = "OFFICE OF NAVAL INTELLIGENCE";
-        const statusTxt = "ESTABLISHING SECURE UPLINK...";
+        const statusTxt = "ACCESSING iNet DATABASE... VERIFYING BIOMETRICS...";
 
-        // Type header
         let i = 0;
         function typeHeader() {
             if (i < headerTxt.length) {
                 header.innerHTML += headerTxt.charAt(i);
                 i++;
-                setTimeout(typeHeader, 50);
+                setTimeout(typeHeader, 40);
             } else {
                 typeStatus();
             }
         }
 
-        // Type status line
         let j = 0;
         function typeStatus() {
-            status.style.width = "auto";
             if (j < statusTxt.length) {
                 status.innerHTML += statusTxt.charAt(j);
                 j++;
-                setTimeout(typeStatus, 40);
+                setTimeout(typeStatus, 30);
             } else {
-                status.style.borderRight = "none";
                 startLoading();
             }
         }
 
-        // Run loading bar
         function startLoading() {
             loadContainer.classList.remove('hidden');
-            footer.classList.remove('hidden');
             let width = 0;
             const interval = setInterval(() => {
                 if (width >= 100) {
                     clearInterval(interval);
-                    status.innerText = "ACCESS GRANTED. WELCOME, OPERATIVE.";
-                    setTimeout(() => { showPage('db-page'); }, 800);
+                    status.innerHTML = "IDENTITY CONFIRMED. ACCESS GRANTED.";
+                    setTimeout(() => { showPage('db-page'); }, 1000);
                 } else {
-                    width += Math.random() * 15;
+                    width += Math.floor(Math.random() * 20);
                     if (width > 100) width = 100;
                     barFill.style.width = width + '%';
                 }
-            }, 200);
+            }, 250);
         }
 
         typeHeader();
